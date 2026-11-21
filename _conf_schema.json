@@ -1,0 +1,188 @@
+{
+  "enabled": {
+    "description": "启用希儿桌宠桥接",
+    "type": "bool",
+    "default": true,
+    "hint": "关闭插件不会自动删除平台配置；需要同时禁用 seele_desktop 平台。"
+  },
+  "custom_stt_enabled": {
+    "description": "启用自定义厂商 STT",
+    "type": "bool",
+    "default": false,
+    "hint": "启用后优先于 Qwen 和 AstrBot STT；需要填写 API Key、Base 和模型。"
+  },
+  "custom_stt_protocol": {
+    "description": "自定义 STT 协议",
+    "type": "string",
+    "default": "openai",
+    "hint": "openai：OpenAI 兼容 /audio/transcriptions；dashscope：DashScope 同步接口。"
+  },
+  "custom_stt_api_key": {
+    "description": "自定义 STT API Key",
+    "type": "string",
+    "default": "",
+    "hint": "仅写入 AstrBot 的 seele 插件配置，不要写进桌宠目录或分享包。"
+  },
+  "custom_stt_api_base": {
+    "description": "自定义 STT API Base",
+    "type": "string",
+    "default": "",
+    "hint": "例如 https://api.openai.com/v1 或厂商兼容地址；openai 协议会自动补 /v1/audio/transcriptions。"
+  },
+  "custom_stt_model": {
+    "description": "自定义 STT 模型",
+    "type": "string",
+    "default": "",
+    "hint": "填写厂商要求的 ASR 模型名。"
+  },
+  "custom_stt_ffmpeg_path": {
+    "description": "自定义 STT 的 ffmpeg 路径",
+    "type": "string",
+    "default": "",
+    "hint": "桌宠录音是 WebM 时需要转 WAV；留空使用 PATH 中的 ffmpeg。"
+  },
+  "custom_stt_timeout": {
+    "description": "自定义 STT 超时（秒）",
+    "type": "int",
+    "default": 120,
+    "hint": "连接和识别总超时。"
+  },
+  "qwen_stt_enabled": {
+    "description": "启用 Qwen3-ASR 语音转文字",
+    "type": "bool",
+    "default": false,
+    "hint": "填写 qwen_stt_api_key 后启用；会优先于 AstrBot 的 STT Provider。"
+  },
+  "qwen_stt_api_key": {
+    "description": "Qwen ASR API Key",
+    "type": "string",
+    "default": "",
+    "hint": "仅填写在本地 AstrBot 插件配置中，不要写进桌宠目录或分享包。"
+  },
+  "qwen_stt_api_base": {
+    "description": "Qwen ASR API Base",
+    "type": "string",
+    "default": "https://maas.qianwenaiapi.com/api/v1",
+    "hint": "DashScope 同步接口基址；默认使用北京地域。"
+  },
+  "qwen_stt_model": {
+    "description": "Qwen ASR 模型",
+    "type": "string",
+    "default": "qwen3-asr-flash",
+    "hint": "使用同步的 qwen3-asr-flash；filetrans 模型只接受公网 URL 且异步，不适合桌宠本地录音。"
+  },
+  "qwen_stt_ffmpeg_path": {
+    "description": "语音转 WAV 的 ffmpeg 路径",
+    "type": "string",
+    "default": "",
+    "hint": "留空使用 PATH 中的 ffmpeg；桌宠录音是 WebM 时需要转换。"
+  },
+  "qwen_stt_timeout": {
+    "description": "Qwen ASR 超时（秒）",
+    "type": "int",
+    "default": 120,
+    "hint": "本地短语音一般几秒内完成。"
+  },
+  "memory_provider": {
+    "description": "主动观察记忆写入方式",
+    "type": "string",
+    "default": "auto",
+    "hint": "auto：优先 memory_companion，否则使用第一个兼容的记忆插件；memory_companion：只写 memory_companion；custom：按 memory_plugin 指定；none：不写记忆。"
+  },
+  "memory_plugin": {
+    "description": "自定义记忆插件名称片段",
+    "type": "string",
+    "default": "",
+    "hint": "仅 memory_provider=custom 时使用。"
+  },
+  "memory_owner_user_id": {
+    "description": "记忆归属用户 ID",
+    "type": "string",
+    "default": "",
+    "hint": "使用 memory_companion 时填写主人对应的用户 ID；为空时无法写入长期记忆。"
+  },
+  "proactive_video_enabled": {
+    "description": "启用主动录屏 inbox",
+    "type": "bool",
+    "default": false,
+    "hint": "只读取 inbox，不删除源文件。默认关闭。"
+  },
+  "proactive_video_inbox": {
+    "description": "主动录屏 inbox 目录",
+    "type": "string",
+    "default": "",
+    "hint": "留空使用 AstrBot data/seele_record_inbox。"
+  },
+  "proactive_video_poll_seconds": {
+    "description": "inbox 扫描间隔（秒）",
+    "type": "int",
+    "default": 15,
+    "hint": "最小 2 秒。"
+  },
+  "proactive_video_ffmpeg_path": {
+    "description": "ffmpeg 路径",
+    "type": "string",
+    "default": "",
+    "hint": "留空尝试从 PATH 查找；需要转码时必须可用。"
+  },
+  "proactive_video_ffprobe_path": {
+    "description": "ffprobe 路径",
+    "type": "string",
+    "default": "",
+    "hint": "留空尝试从 PATH 查找。"
+  },
+  "proactive_video_api_base": {
+    "description": "视频模型 API Base",
+    "type": "string",
+    "default": "",
+    "hint": "例如 Qwen 兼容接口地址；不要填写到打包版中。"
+  },
+  "proactive_video_api_key": {
+    "description": "视频模型 API Key",
+    "type": "string",
+    "default": "",
+    "hint": "仅本机配置，打包版不得内置任何 Key。"
+  },
+  "proactive_video_model": {
+    "description": "视频模型名称",
+    "type": "string",
+    "default": "",
+    "hint": "填写你使用的视频模型名称。"
+  },
+  "proactive_video_format": {
+    "description": "视频请求格式",
+    "type": "string",
+    "default": "qwen",
+    "hint": "qwen 或 gemini。"
+  },
+  "proactive_video_fps": {
+    "description": "视频采样帧率",
+    "type": "int",
+    "default": 1,
+    "hint": "建议 1，成本最低。"
+  },
+  "proactive_video_max_mb": {
+    "description": "单视频大小上限（MB）",
+    "type": "int",
+    "default": 30,
+    "hint": "超过时尝试用 ffmpeg 降低码率。"
+  },
+  "proactive_video_direct_frame_mb": {
+    "description": "视频直接转单帧的体积阈值（MB）",
+    "type": "float",
+    "default": 3,
+    "hint": "超过该体积不先尝试视频，直接抽取一帧做图片理解；建议 3。"
+  },
+  "proactive_video_timeout": {
+    "description": "视频分析超时（秒）",
+    "type": "int",
+    "default": 90,
+    "hint": "连接和推理总超时。"
+  },
+  "proactive_video_prompt": {
+    "description": "视频分析提示词",
+    "type": "string",
+    "default": "这是桌宠主动观察到的电脑屏幕录像。请用简洁中文说明用户正在做什么，提取值得记住的偏好、习惯、情绪或事件；不要朗读密码、聊天内容、身份证、银行卡等敏感信息。",
+    "hint": "不要要求模型读取密码、聊天记录等敏感内容。"
+  }
+}

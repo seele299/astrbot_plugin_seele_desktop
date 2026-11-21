@@ -1,0 +1,80 @@
+name: Bug 报告（插件）
+description: 平台注册、消息收发、STT/TTS/SVC、主动录屏分析、记忆写入等插件侧问题
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        提交前请确认：
+        1. 插件目录名为 `astrbot_plugin_seele_desktop`，不是嵌套两层；
+        2. 已完全重启 AstrBot（不是刷新网页）；
+        3. 插件列表里该插件已启用。
+  - type: input
+    id: plugin_version
+    attributes:
+      label: 插件版本
+      description: 见 `metadata.yaml` 的 version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: astrbot_version
+    attributes:
+      label: AstrBot 版本
+      description: WebUI 关于页或启动日志中的版本号
+      placeholder: "4.29.4"
+    validations:
+      required: true
+  - type: input
+    id: os
+    attributes:
+      label: 运行环境
+      description: 系统与 Python 版本，例如 Windows 11 / Python 3.12；Docker 请注明
+      placeholder: "Windows 11 / Python 3.12"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 问题范围
+      options:
+        - 平台注册 / 连接
+        - 文字或图片消息
+        - 语音输入（STT）
+        - 语音输出（TTS / SVC）
+        - 主动录屏分析与 ack
+        - 记忆写入
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: 现象与期望
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 桌宠设置连接 ws://127.0.0.1:9080/astrbot/seele
+        2. 发送一条图片消息
+        3. 桌宠无回复，AstrBot 日志出现 ...
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: AstrBot 日志与 ack 内容
+      description: 相关时段日志；主动录屏问题请附 `seele_record_inbox/ack/*.json` 的内容。请先移除 Key 与个人路径。
+      render: text
+  - type: checkboxes
+    id: deps
+    attributes:
+      label: 依赖状态
+      options:
+        - label: 已安装 `aiohttp`
+        - label: 已安装 `openai`（仅主动录屏分析需要）
+        - label: 已配置 ffmpeg / ffprobe（仅主动录屏需要）

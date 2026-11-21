@@ -1,0 +1,8 @@
+﻿name: astrbot_plugin_seele_desktop
+display_name: 希儿 Spine 桌宠桥接
+author: bilibili@Natsuny_夏雫
+desc: 为 Spine 桌宠提供 AstrBot 平台适配器，支持文字聊天、图片/屏幕识别、TTS 语音和主动消息。
+version: 1.0.0
+support_platforms:
+  - seele_desktop
+

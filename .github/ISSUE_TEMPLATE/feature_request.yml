@@ -1,0 +1,39 @@
+name: 功能建议（插件）
+description: 平台适配、STT/TTS/SVC、记忆、录屏分析等插件能力的改进
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 想解决什么问题
+      description: 描述使用场景
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 期望的做法
+      description: 涉及新配置项时请说明键名与默认值
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 涉及范围
+      options:
+        - 平台适配 / 消息协议
+        - STT
+        - TTS / SVC
+        - 主动录屏分析
+        - 记忆
+        - 其他
+    validations:
+      required: true
+  - type: checkboxes
+    id: contribute
+    attributes:
+      label: 是否愿意参与
+      options:
+        - label: 我可以提交 PR
+        - label: 我可以帮忙测试

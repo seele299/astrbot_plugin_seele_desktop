@@ -1,0 +1,38 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python 语法检查
+        run: python3 -m py_compile *.py
+
+      - name: 配置与元数据校验
+        run: |
+          python3 -m pip install --quiet pyyaml
+          python3 - <<'PY'
+          import json, yaml, sys
+          schema = json.load(open('_conf_schema.json', encoding='utf-8'))
+          meta = yaml.safe_load(open('metadata.yaml', encoding='utf-8'))
+          missing = [k for k in ('name', 'desc', 'version', 'author') if not meta.get(k)]
+          if missing:
+              sys.exit(f"metadata.yaml 缺少字段: {missing}")
+          print(f"schema keys={len(schema)} version={meta['version']}")
+          PY
+
+      - name: 禁止提交素材
+        run: |
+          bad=$(git ls-files | grep -E '\.(webm|wav|mp3|skel|atlas|png|jpg|jpeg|onnx|pth|zip)$' || true)
+          if [ -n "$bad" ]; then
+            echo "::error::插件仓库不接收任何素材或模型文件："
+            echo "$bad"
+            exit 1
+          fi
+          echo "no assets"
